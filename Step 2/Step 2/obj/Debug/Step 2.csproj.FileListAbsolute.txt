@@ -1,0 +1,6 @@
+C:\Users\dweathers\Source\Repos\Code2040\Step 2\Step 2\bin\Debug\Step 2.exe.config
+C:\Users\dweathers\Source\Repos\Code2040\Step 2\Step 2\bin\Debug\Step 2.exe
+C:\Users\dweathers\Source\Repos\Code2040\Step 2\Step 2\bin\Debug\Step 2.pdb
+C:\Users\dweathers\Source\Repos\Code2040\Step 2\Step 2\obj\Debug\Step 2.csprojResolveAssemblyReference.cache
+C:\Users\dweathers\Source\Repos\Code2040\Step 2\Step 2\obj\Debug\Step 2.exe
+C:\Users\dweathers\Source\Repos\Code2040\Step 2\Step 2\obj\Debug\Step 2.pdb
