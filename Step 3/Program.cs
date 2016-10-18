@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Net;
+using Newtonsoft.Json;
 namespace Step_3
 {
     class Program
@@ -15,18 +13,17 @@ namespace Step_3
             Console.WriteLine(data);
 
 
+            Dictionary<string, string[]> values = new Dictionary<string, string[]>();
+            
 
-            string reversestring = "";
-            char[] cArray = data.ToCharArray();
-            for (int i = cArray.Length - 1; i > -1; i--)
-            {
-                reversestring += cArray[i];
-            }
 
-            var json = "{\"token\" :\"c542488ecdbab538ee07b0383f7d7af3\"," + "\"string\":\"" + reversestring + "\"}";
-            Console.WriteLine(json);
-            var newdata = makeRequest("http://challenge.code2040.org/api/haystack/validate", json);
-            Console.WriteLine(newdata);
+
+            //string needle = values[]
+
+            //var json = "{\"token\" :\"c542488ecdbab538ee07b0383f7d7af3\"," + "\"string\":\"" + reversestring + "\"}";
+            //Console.WriteLine(json);
+            //var newdata = makeRequest("http://challenge.code2040.org/api/haystack/validate", json);
+            //Console.WriteLine(newdata);
 
 
         }
@@ -42,14 +39,15 @@ namespace Step_3
             {
                 streamWriter.Write(json);
             }
-            
 
+
+            string dictionary = null;
             var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             using (var streamReader = new StreamReader(httpWebResponse.GetResponseStream()))
             {
-                json = streamReader.ReadToEnd();
+                dictionary = streamReader.ReadToEnd();
             }
-            return json;
+            return dictionary;
 
         }
     }
