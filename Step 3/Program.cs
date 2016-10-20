@@ -10,20 +10,37 @@ namespace Step_3
         static void Main(string[] args)
         {
             var data = makeRequest("http://challenge.code2040.org/api/haystack", "{\"token\" :\"c542488ecdbab538ee07b0383f7d7af3\"}");
-            Console.WriteLine(data);
+            //Console.WriteLine(data);
 
-
-            Dictionary<string, string[]> values = new Dictionary<string, string[]>();
-            
+            //Console.ReadLine();
 
 
 
-            //string needle = values[]
+            Dictionary<string, Object> values = JsonConvert.DeserializeObject<Dictionary<string, Object>>(data);
+            var needle = values["needle"];
+            var haystack = values["haystack"].ToString().Replace("\"", "").Replace("[","").Replace("]","").Replace("\r\n", "").Replace(" ", "").Split(',');
+            Console.WriteLine(haystack);
 
-            //var json = "{\"token\" :\"c542488ecdbab538ee07b0383f7d7af3\"," + "\"string\":\"" + reversestring + "\"}";
-            //Console.WriteLine(json);
-            //var newdata = makeRequest("http://challenge.code2040.org/api/haystack/validate", json);
-            //Console.WriteLine(newdata);
+            int index = 0;
+
+            for (int i = 0; i < haystack.Length; i++)
+            {
+                if ((string)needle == haystack[i])
+                {
+                    index = haystack[i].Length;
+
+                }
+                else
+                {
+                    index = 0;
+                }
+            }
+
+
+            var json = "{\"token\" :\"c542488ecdbab538ee07b0383f7d7af3\"," + "\"needle\":\"" + index + "\"}";
+            Console.WriteLine(json);
+            var newdata = makeRequest("http://challenge.code2040.org/api/haystack/validate", json);
+            Console.WriteLine(newdata);
 
 
         }
