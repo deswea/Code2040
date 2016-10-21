@@ -1,50 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
-namespace Step_3
+using System.Net;
+using System.IO;
+
+namespace Step_4
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var data = makeRequest("http://challenge.code2040.org/api/haystack", "{\"token\" :\"c542488ecdbab538ee07b0383f7d7af3\"}");
-            //Console.WriteLine(data);
 
+            var data = makeRequest("http://challenge.code2040.org/api/prefix", "{\"token\" :\"c542488ecdbab538ee07b0383f7d7af3\"}");
+            //Console.WriteLine(data);
             //Console.ReadLine();
 
 
 
             Dictionary<string, Object> values = JsonConvert.DeserializeObject<Dictionary<string, Object>>(data);
-            var needle = values["needle"];
-            var haystack = values["haystack"].ToString().Replace("\"", "").Replace("[","").Replace("]","").Replace("\r\n", "").Replace(" ", "").Split(',');
-            Console.WriteLine(haystack);
+            var prefix = values["prefix"];
 
-            int index = 0;
+            var array = values["array"].ToString().Replace("\"", "").Replace("[", "").Replace("]", "").Replace("\r\n", "").Replace(" ", "").Split(',');
+            Console.WriteLine(array);
+            List<string> newlist = null;
 
-            for (int i = 0; i < haystack.Length; i++)
+            for(int i = 0; i< array.Length; i++)
+            if (array[i].Contains((string)prefix))
             {
-                if (needle == haystack[i])
-                {
-                    index = i;
-
-                }
+                    newlist.Add(array[i]);        
+            }
                 else
                 {
-                    index = 0;
+                    newlist = null;
                 }
-            }
+            
 
 
-            var json = "{\"token\" :\"c542488ecdbab538ee07b0383f7d7af3\"," + "\"needle\":\"" + index + "\"}";
+            var json = "{\"token\" :\"c542488ecdbab538ee07b0383f7d7af3\"," + "\"array\":\"" + newlist +  "\"}";
             Console.WriteLine(json);
-            var newdata = makeRequest("http://challenge.code2040.org/api/haystack/validate", json);
+            var newdata = makeRequest("http://challenge.code2040.org/api/prefix/validate", json);
             Console.WriteLine(newdata);
-
-
         }
-
 
         public static string makeRequest(string url, string json)
         {
@@ -58,7 +57,7 @@ namespace Step_3
             }
 
 
-            string dictionary = null;
+            var dictionary = "";
             var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             using (var streamReader = new StreamReader(httpWebResponse.GetResponseStream()))
             {
