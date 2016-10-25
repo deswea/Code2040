@@ -25,23 +25,28 @@ namespace Step_4
 
             var array = values["array"].ToString().Replace("\"", "").Replace("[", "").Replace("]", "").Replace("\r\n", "").Replace(" ", "").Split(',');
             Console.WriteLine(array);
-            List<string> newlist = null;
+            List<string> newlist = new List<string>();
 
-            for(int i = 0; i< array.Length; i++)
-            if (array[i].Contains((string)prefix))
+            for (int i = 0; i < array.Length; i++)
             {
-                    newlist.Add(array[i]);        
-            }
-                else
+
+
+
+                if (!array[i].Contains((string)prefix))
                 {
-                    newlist = null;
+                    newlist.Add(array[i]);
+
                 }
-            
+                newlist.ToArray();
 
+            }
 
-            var json = "{\"token\" :\"c542488ecdbab538ee07b0383f7d7af3\"," + "\"array\":\"" + newlist +  "\"}";
+            Console.WriteLine("Prefix: " + prefix);
+            Console.WriteLine("Array: " + String.Join(", ", array));
+            var json = "{\"token\" :\"c542488ecdbab538ee07b0383f7d7af3\", " + "\"array\": " + JsonConvert.SerializeObject(newlist) +  "}";
             Console.WriteLine(json);
             var newdata = makeRequest("http://challenge.code2040.org/api/prefix/validate", json);
+
             Console.WriteLine(newdata);
         }
 
